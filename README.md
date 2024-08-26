@@ -8,7 +8,10 @@ Test task for Mutinex
 ## TODO
 ### Init setup
 - [x] deployment
-- [] 
+- [] Characters
+--[x] display 5 characters at a time as thumbnails
+--[x] add button to load 5 more characters
+--[] infinite loading?
 
 
 

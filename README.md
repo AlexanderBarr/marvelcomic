@@ -9,9 +9,9 @@ Test task for Mutinex
 ### setup
 - [x] deployment
 ### characters
--[x] display 5 characters at a time as thumbnails
--[x] add button to load 5 more characters
--[] infinite loading?
+- [x] display 5 characters at a time as thumbnails
+- [x] add button to load 5 more characters
+- [] infinite loading?
 ### comics
 ### booklist
 

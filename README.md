@@ -7,38 +7,40 @@ Test task for Mutinex
 
 ## To run
 A deployed version of this app can be found hosted on Vercel:
-marvelcomic-9yjfsomat-alexs-projects-ddcf1a67.vercel.app
+[Vercel link](https://marvelcomic-9yjfsomat-alexs-projects-ddcf1a67.vercel.app/)
 
 Otherwise:
-Clone the repo
+
+Clone the repo &
+
 run
-```pnpm install
 ```
-```pnpm dev
+pnpm install
+pnpm dev
 ```
 and navigate to:
-[localhost:](http://localhost:3000/)
+[localhost:3000](http://localhost:3000/)
 
 ## TODO
-### setup
+### Setup
 - [x] deployment
-### characters
+### Characters
 - [x] display 5 characters at a time as thumbnails
 - [x] add button to load 5 more characters
 - [ ] infinite loading
 - [x] load more as compromise 
 - [x] thumbnail directs to character modal/detail
 
-### character details
+### Character details
 - [x] when clicked icon, loading visual and fetch data
 - [x] display large img, name, description
 - [x] fetch comics that character is in
-- [] 
-### comics
-### search
+- [ ] 
+### Comics
+### Search
 - [ ] design a search bar with shadcn
 - [ ] 
-### booklist
+### Booklist
 
 
 ## Bugs

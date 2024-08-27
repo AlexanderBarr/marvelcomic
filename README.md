@@ -12,7 +12,13 @@ Test task for Mutinex
 - [x] display 5 characters at a time as thumbnails
 - [x] add button to load 5 more characters
 - [ ] infinite loading
-- [ ] thumbnail directs to character modal/detail
+- [x] load more as compromise 
+- [x] thumbnail directs to character modal/detail
+### character details
+- [] when clicked icon, loading visual and fetch data
+- [] display large img, name, description
+- [] fetch comics that character is in
+- [] 
 ### comics
 ### booklist
 

@@ -5,6 +5,20 @@ Task is to create a Marvel comic repo using the MarvelAPI (https://developer.mar
 Test task for Mutinex
 
 
+## To run
+A deployed version of this app can be found hosted on Vercel:
+marvelcomic-9yjfsomat-alexs-projects-ddcf1a67.vercel.app
+
+Otherwise:
+Clone the repo
+run
+```pnpm install
+```
+```pnpm dev
+```
+and navigate to:
+[localhost:](http://localhost:3000/)
+
 ## TODO
 ### setup
 - [x] deployment
@@ -14,20 +28,22 @@ Test task for Mutinex
 - [ ] infinite loading
 - [x] load more as compromise 
 - [x] thumbnail directs to character modal/detail
+
 ### character details
-- [] when clicked icon, loading visual and fetch data
-- [] display large img, name, description
-- [] fetch comics that character is in
+- [x] when clicked icon, loading visual and fetch data
+- [x] display large img, name, description
+- [x] fetch comics that character is in
 - [] 
 ### comics
+### search
+- [ ] design a search bar with shadcn
+- [ ] 
 ### booklist
 
 
-
-## Features
-
 ## Bugs
-### Styles
+- [ ] work out why its double fetching
+## Styles
 
 
 
@@ -43,11 +59,3 @@ Test task for Mutinex
 - React | Next.js 
 - Vercel (Builds and Deployment)
     - https://vercel.com/
-- Clerk (Authentication)
-    - https://clerk.com/
-- Sentry (Error Management and Tracking)
-    - https://sentry.io
-- PostHog (Analytics)
-    - https://posthog.com/
-- UpStash (RateLimiting)
-    - https://upstash.com/

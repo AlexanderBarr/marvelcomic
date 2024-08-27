@@ -2,9 +2,8 @@
 import { ComicList } from "~/components/ComicList";
 import { useCharacterData } from "~/app/hooks/useCharacterData";
 import { LoadingScreen } from "~/components/LoadingScreen";
-import Image from "next/image";
 
-export function FullPageImageView({ photoId }: { photoId: string }) {
+export function FullPageCharacterDetails({ photoId }: { photoId: string }) {
   const { isBusy, image, comics } = useCharacterData(photoId);
 
   if (isBusy) {
@@ -26,7 +25,6 @@ export function FullPageImageView({ photoId }: { photoId: string }) {
         <div className="border-b p-2 text-center text-xl">{image?.name}</div>
         <div>Description:</div>
         <div>{image?.description}</div>
-        {/* <div className="flex flex-shrink-0 p-2"> */}
         <div className="flex overflow-y-scroll p-2">
           <ComicList comics={comics} />
         </div>

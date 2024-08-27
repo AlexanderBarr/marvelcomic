@@ -1,7 +1,8 @@
 "use client"; // Mark this file as a Client Component
-
+export const dynamic = "force-dynamic";
 import React, { useState } from "react";
 import { fetchMarvelAllCharacters } from "../services/marvelApi";
+import Link from "next/link";
 
 interface CharacterData {
   id: number;
@@ -25,7 +26,7 @@ export default function MarvelCharacters() {
     setLoading(true);
 
     try {
-      const limit = 5; // Number of characters to fetch per request
+      const limit = 1; // Number of characters to fetch per request
       const newCharacters = await fetchMarvelAllCharacters(limit, offset);
 
       if (newCharacters.length < limit) {
@@ -54,8 +55,34 @@ export default function MarvelCharacters() {
 
   return (
     <div>
-      <h1>Marvel Characters</h1>
+      <h1>Characters</h1>
 
+      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        {characters.map((character) => (
+          <div key={character.id} className="flex items-center justify-center">
+            {/* <button
+              onClick={() => handleCharacterClick(character.name)}
+              className="relative overflow-hidden rounded"
+              style={{ width: "80px", height: "80px" }}
+            > */}
+            <Link
+              href={`/character/${character.id}`}
+              className="relative overflow-hidden rounded"
+              style={{ width: "80px", height: "80px" }}
+            >
+              <img
+                src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                alt={character.name}
+                className="h-full w-full object-cover"
+              />
+              <span className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-xs font-semibold text-white">
+                {character.name}
+              </span>
+            </Link>
+            {/* </button> */}
+          </div>
+        ))}
+      </div>
       <button
         onClick={handleFetchMore}
         className="rounded bg-blue-500 p-2 text-white"
@@ -69,27 +96,6 @@ export default function MarvelCharacters() {
       </button>
 
       {error && <p className="text-red-500">{error}</p>}
-
-      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {characters.map((character) => (
-          <div key={character.id} className="flex items-center justify-center">
-            <button
-              onClick={() => handleCharacterClick(character.name)}
-              className="relative overflow-hidden rounded"
-              style={{ width: "80px", height: "80px" }}
-            >
-              <img
-                src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                alt={character.name}
-                className="h-full w-full object-cover"
-              />
-              <span className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-xs font-semibold text-white">
-                {character.name}
-              </span>
-            </button>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

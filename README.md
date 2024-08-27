@@ -11,7 +11,8 @@ Test task for Mutinex
 ### characters
 - [x] display 5 characters at a time as thumbnails
 - [x] add button to load 5 more characters
-- [] infinite loading?
+- [ ] infinite loading
+- [ ] thumbnail directs to character modal/detail
 ### comics
 ### booklist
 

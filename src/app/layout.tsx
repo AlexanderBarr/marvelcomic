@@ -21,10 +21,7 @@ export default function RootLayout({
       <body className={`font-sans ${GeistSans.variable} dark`}>
         <div className="grid h-screen grid-rows-[auto,1fr]">
           <TopNav />
-          <main className="overflow-y-scroll">
-            <MarvelCharacters /> {/* Use the client component */}
-            {children}
-          </main>
+          <main className="overflow-y-scroll">{children}</main>
           {modal}
         </div>
         <div id="modal-root" />

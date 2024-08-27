@@ -1,10 +1,61 @@
-// services/marvelApi.ts
+// queries.ts
 import crypto from "crypto";
 
+// Define the base URL and keys
 const marvelApiStart =
   "https://gateway.marvel.com:443/v1/public/characters?apikey=";
 const marvelPublicKey = "dacd124f34943f4f40c5692e6a750038";
 const marvelPrivateKey = "a499974f88943a7e7f430c2a0268ef100335cd3d";
+
+// Define interfaces for API responses
+interface ComicThumbnail {
+  path: string;
+  extension: string;
+}
+
+interface ComicDate {
+  type: string;
+  date: string;
+}
+interface ComicItem {
+  resourceURI: string;
+  name: string;
+}
+
+interface Comic {
+  id: number;
+  title: string;
+  thumbnail: ComicThumbnail;
+  dates: ComicDate[];
+}
+
+interface CharacterThumbnail {
+  path: string;
+  extension: string;
+}
+
+interface Comics {
+  available: number;
+  collectionURI: string;
+  items: ComicItem[];
+  returned: number;
+}
+
+interface Character {
+  id: number;
+  name: string;
+  description: string;
+  modified: string;
+  thumbnail: CharacterThumbnail;
+  resourceURI: string;
+  comics: Comics;
+}
+
+interface ApiResponse<T> {
+  data: {
+    results: T[];
+  };
+}
 
 function generateHash(ts: string): string {
   return crypto
@@ -13,7 +64,7 @@ function generateHash(ts: string): string {
     .digest("hex");
 }
 
-export async function fetchMarvelCharacter(name: string) {
+export async function fetchMarvelCharacter(name: string): Promise<Character[]> {
   const ts = new Date().getTime().toString();
   const hash = generateHash(ts);
   const requestUrl = `${marvelApiStart}${marvelPublicKey}&ts=${ts}&hash=${hash}&nameStartsWith=${name}`;
@@ -23,14 +74,14 @@ export async function fetchMarvelCharacter(name: string) {
     throw new Error("Failed to fetch Marvel characters");
   }
 
-  const data = await response.json();
+  const data: ApiResponse<Character> = await response.json();
   return data.data.results;
 }
 
 export async function fetchMarvelAllCharacters(
   limit: number = 100,
   offset: number = 0,
-) {
+): Promise<Character[]> {
   const ts = new Date().getTime().toString();
   const hash = generateHash(ts);
   const requestUrl = `${marvelApiStart}${marvelPublicKey}&ts=${ts}&hash=${hash}&limit=${limit}&offset=${offset}`;
@@ -41,31 +92,30 @@ export async function fetchMarvelAllCharacters(
     throw new Error("Failed to fetch Marvel characters");
   }
 
-  const data = await response.json();
+  const data: ApiResponse<Character> = await response.json();
   console.log(data);
 
   return data.data.results;
 }
 
-export async function fetchMarvelCharactersById(id: number) {
+export async function fetchMarvelCharactersById(
+  id: number,
+): Promise<Character[]> {
   const ts = new Date().getTime().toString();
   const hash = generateHash(ts);
   const marvelApiStartWithId = `https://gateway.marvel.com:443/v1/public/characters/${id}?apikey=`;
   const requestUrl = `${marvelApiStartWithId}${marvelPublicKey}&ts=${ts}&hash=${hash}`;
 
-  console.log("requestUrl:", requestUrl);
   const response = await fetch(requestUrl);
   if (!response.ok) {
     throw new Error("Failed to fetch Marvel characters");
   }
 
   const data = await response.json();
-  console.log(data);
-
-  return data.data.results;
+  return data.data.results as Character[];
 }
 
-export async function fetchComicById(comicId: string): Promise<any> {
+export async function fetchComicById(comicId: string): Promise<Comic> {
   const ts = new Date().getTime().toString();
   const hash = generateHash(ts);
   const marvelApiStartWithId = `https://gateway.marvel.com:443/v1/public/comics/${comicId}?apikey=`;
@@ -76,10 +126,17 @@ export async function fetchComicById(comicId: string): Promise<any> {
     throw new Error(`Failed to fetch comic with ID: ${comicId}`);
   }
 
-  const data = await response.json();
-  return data.data.results[0]; // Return the first result, which is the comic data
+  const data: ApiResponse<Comic> = await response.json();
+
+  // Handle cases where no results are returned
+  const comic = data.data.results[0];
+  if (!comic) {
+    throw new Error(`Comic with ID ${comicId} not found`);
+  }
+
+  return comic;
 }
 
-export async function fetchAllComics(comicIds: string[]): Promise<any[]> {
-  return await Promise.all(comicIds.map(fetchComicById));
+export async function fetchAllComics(comicIds: string[]): Promise<Comic[]> {
+  return await Promise.all(comicIds.map((id) => fetchComicById(id)));
 }

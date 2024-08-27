@@ -1,9 +1,10 @@
 "use client";
+import Image from "next/image";
 import { ComicList } from "~/components/ComicList";
 import { useCharacterData } from "~/app/hooks/useCharacterData";
 import { LoadingScreen } from "~/components/LoadingScreen";
 
-export function FullPageCharacterDetails({ photoId }: { photoId: string }) {
+export function FullPageImageView({ photoId }: { photoId: string }) {
   const { isBusy, image, comics } = useCharacterData(photoId);
 
   if (isBusy) {
@@ -14,10 +15,12 @@ export function FullPageCharacterDetails({ photoId }: { photoId: string }) {
     <div className="flex h-full w-screen min-w-0 items-center justify-center text-white">
       <div className="flex-shrink flex-grow">
         {image && (
-          <img
+          <Image
             src={`${image.thumbnail.path}.${image.thumbnail.extension}`}
             alt={image.name}
             className="object-contain"
+            width={600} // Adjust as needed
+            height={600} // Adjust as needed
           />
         )}
       </div>

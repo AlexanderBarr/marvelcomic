@@ -1,4 +1,4 @@
-"use client"; // Mark this file as a Client Component
+"use client";
 export const dynamic = "force-dynamic";
 import React, { useState } from "react";
 import { fetchMarvelAllCharacters } from "~/server/queries";
@@ -19,23 +19,23 @@ export default function MarvelCharacters() {
   const [characters, setCharacters] = useState<CharacterData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [offset, setOffset] = useState(0); // Track the current offset
-  const [hasMore, setHasMore] = useState(true); // To control if more data is available
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreCharacters = async () => {
-    if (loading) return; // Prevent multiple fetches at the same time
+    if (loading) return;
     setLoading(true);
 
     try {
-      const limit = 1; // Number of characters to fetch per request
+      const limit = 1;
       const newCharacters = await fetchMarvelAllCharacters(limit, offset);
 
       if (newCharacters.length < limit) {
-        setHasMore(false); // No more characters to load
+        setHasMore(false);
       }
 
       setCharacters((prev) => [...prev, ...newCharacters]);
-      setOffset((prev) => prev + limit); // Increment the offset
+      setOffset((prev) => prev + limit);
     } catch (err) {
       setError("Failed to fetch characters. Please try again.");
       console.error(err);
@@ -50,10 +50,6 @@ export default function MarvelCharacters() {
     }
   };
 
-  const handleCharacterClick = (name: string) => {
-    console.log(name);
-  };
-
   return (
     <div>
       <h1>Characters</h1>
@@ -61,11 +57,6 @@ export default function MarvelCharacters() {
       <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {characters.map((character) => (
           <div key={character.id} className="flex items-center justify-center">
-            {/* <button
-              onClick={() => handleCharacterClick(character.name)}
-              className="relative overflow-hidden rounded"
-              style={{ width: "80px", height: "80px" }}
-            > */}
             <Link
               href={`/character/${character.id}`}
               className="relative overflow-hidden rounded"
@@ -82,7 +73,6 @@ export default function MarvelCharacters() {
                 {character.name}
               </span>
             </Link>
-            {/* </button> */}
           </div>
         ))}
       </div>

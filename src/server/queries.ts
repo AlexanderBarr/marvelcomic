@@ -46,3 +46,40 @@ export async function fetchMarvelAllCharacters(
 
   return data.data.results;
 }
+
+export async function fetchMarvelCharactersById(id: number) {
+  const ts = new Date().getTime().toString();
+  const hash = generateHash(ts);
+  const marvelApiStartWithId = `https://gateway.marvel.com:443/v1/public/characters/${id}?apikey=`;
+  const requestUrl = `${marvelApiStartWithId}${marvelPublicKey}&ts=${ts}&hash=${hash}`;
+
+  console.log("requestUrl:", requestUrl);
+  const response = await fetch(requestUrl);
+  if (!response.ok) {
+    throw new Error("Failed to fetch Marvel characters");
+  }
+
+  const data = await response.json();
+  console.log(data);
+
+  return data.data.results;
+}
+
+export async function fetchComicById(comicId: string): Promise<any> {
+  const ts = new Date().getTime().toString();
+  const hash = generateHash(ts);
+  const marvelApiStartWithId = `https://gateway.marvel.com:443/v1/public/comics/${comicId}?apikey=`;
+  const requestUrl = `${marvelApiStartWithId}${marvelPublicKey}&ts=${ts}&hash=${hash}`;
+
+  const response = await fetch(requestUrl);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch comic with ID: ${comicId}`);
+  }
+
+  const data = await response.json();
+  return data.data.results[0]; // Return the first result, which is the comic data
+}
+
+export async function fetchAllComics(comicIds: string[]): Promise<any[]> {
+  return await Promise.all(comicIds.map(fetchComicById));
+}

@@ -1,4 +1,3 @@
-// queries.ts
 import crypto from "crypto";
 
 // Define the base URL and keys
@@ -17,6 +16,7 @@ interface ComicDate {
   type: string;
   date: string;
 }
+
 interface ComicItem {
   resourceURI: string;
   name: string;
@@ -79,8 +79,8 @@ export async function fetchMarvelCharacter(name: string): Promise<Character[]> {
 }
 
 export async function fetchMarvelAllCharacters(
-  limit: number = 100,
-  offset: number = 0,
+  limit = 100,
+  offset = 0,
 ): Promise<Character[]> {
   const ts = new Date().getTime().toString();
   const hash = generateHash(ts);
@@ -111,8 +111,8 @@ export async function fetchMarvelCharactersById(
     throw new Error("Failed to fetch Marvel characters");
   }
 
-  const data = await response.json();
-  return data.data.results as Character[];
+  const data: ApiResponse<Character> = await response.json();
+  return data.data.results;
 }
 
 export async function fetchComicById(comicId: string): Promise<Comic> {

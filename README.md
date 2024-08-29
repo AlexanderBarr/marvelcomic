@@ -1,8 +1,7 @@
-# Marvel Comic App
+# Marvel Comic App for Mutinex
 
-Task: Create a Marvel comic repo using the Marvel API (https://developer.marvel.com/docs).
+Task: Create a Marvel comic app using the Marvel API (https://developer.marvel.com/docs).
 
-Test task for Mutinex
 
 I really appreciate the opportunity to complete this test task for you. Any feedback you have would be greatly appreciated. I spent approximately 8 hours on this task. I experimented with new libraries (shadcn) and learned about modal rendering, as well as furthering my knowledge.
 
@@ -12,9 +11,9 @@ A deployed version of this app can be found hosted on Vercel:
 [Vercel link](https://marvelcomic-9yjfsomat-alexs-projects-ddcf1a67.vercel.app/)
 
 Otherwise:
-
 Clone the repo and run:
-```pnpm install pnpm dev```
+```pnpm install```
+```pnpm dev```
 Then navigate to:
 [localhost:3000](http://localhost:3000/)
 
@@ -27,7 +26,7 @@ Then navigate to:
 - [x] Display 20 characters at a time as thumbnails
 - [x] Add button to load more characters
 - [x] Thumbnail directs to character modal/detail (within homepage or its own page if refreshed)
-- [ ] Infinite loading [Incomplete]
+- [] Infinite loading [Incomplete]
 
 ### Character Details
 - [x] Display large image, name, description

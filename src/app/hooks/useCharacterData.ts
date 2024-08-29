@@ -37,21 +37,11 @@ interface Comic {
 }
 
 function extractIdFromUrl(url: string): number {
-  const match = url.match(/\/(\d+)$/);
+  const regex = /\/(\d+)$/;
+  const match = regex.exec(url);
   return match ? Number(match[1]) : 0;
 }
 
-function transformComicItemToComic(item: ComicItem): Comic {
-  return {
-    id: extractIdFromUrl(item.resourceURI),
-    title: item.name,
-    thumbnail: {
-      path: "default_path", // Adjust as needed
-      extension: "jpg", // Adjust as needed
-    },
-    dates: [], // Adjust as needed
-  };
-}
 function extractComicIds(characters: Character[]): string[] {
   const comicIds: string[] = [];
 
@@ -66,9 +56,10 @@ function extractComicIds(characters: Character[]): string[] {
 
   return comicIds;
 }
+
 export function useCharacterData(photoId: string) {
   const [isBusy, setIsBusy] = useState(true);
-  const [image, setImage] = useState<any>(null);
+  const [image, setImage] = useState<Character | null>(null);
   const [comics, setComics] = useState<Comic[]>([]);
 
   useEffect(() => {
@@ -81,8 +72,8 @@ export function useCharacterData(photoId: string) {
         const fetchedImage = await fetchMarvelCharactersById(idAsNumber);
 
         // Handle case where fetchedImage might be empty
-        if (fetchedImage.length > 0) {
-          setImage(fetchedImage[0]);
+        if (fetchedImage.length > 0 && fetchedImage[0]) {
+          setImage(fetchedImage[0]); // fetchedImage[0] is guaranteed to be of type Character
         } else {
           setImage(null);
         }
@@ -102,7 +93,7 @@ export function useCharacterData(photoId: string) {
       }
     };
 
-    fetchData();
+    void fetchData();
   }, [photoId]);
 
   return { isBusy, image, comics };

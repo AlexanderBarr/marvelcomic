@@ -44,9 +44,9 @@ export default function MarvelCharacters() {
     }
   };
 
-  const handleFetchMore = () => {
+  const handleFetchMore = async () => {
     if (!loading && hasMore) {
-      fetchMoreCharacters();
+      await fetchMoreCharacters();
     }
   };
 

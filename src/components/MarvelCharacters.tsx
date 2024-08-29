@@ -87,8 +87,12 @@ export default function MarvelCharacters() {
 
         <div className="mb-4 flex items-center justify-center">
           <TopNavSearch
-            onSearch={(query) => {
-              setSearchQuery(query);
+            onSearch={async (query) => {
+              if (query === "") {
+                await fetchCharacters();
+              } else {
+                setSearchQuery(query);
+              }
             }}
           />
         </div>

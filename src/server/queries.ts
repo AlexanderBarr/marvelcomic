@@ -81,11 +81,10 @@ export async function fetchMarvelCharacter(name: string): Promise<Character[]> {
 export async function fetchMarvelAllCharacters(
   limit = 100,
   offset = 0,
-  nameStartsWith?: string,
 ): Promise<Character[]> {
   const ts = new Date().getTime().toString();
   const hash = generateHash(ts);
-  const requestUrl = `${marvelApiStart}${marvelPublicKey}&ts=${ts}&hash=${hash}&limit=${limit}&offset=${offset}${nameStartsWith ? `&nameStartsWith=${nameStartsWith}` : ""}`;
+  const requestUrl = `${marvelApiStart}${marvelPublicKey}&ts=${ts}&hash=${hash}&limit=${limit}&offset=${offset}`;
 
   const response = await fetch(requestUrl);
   if (!response.ok) {

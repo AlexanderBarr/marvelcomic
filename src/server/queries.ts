@@ -74,10 +74,9 @@ export async function fetchMarvelCharacter(name: string): Promise<Character[]> {
     throw new Error("Failed to fetch Marvel characters");
   }
 
-  const data = (await response.json()) as ApiResponse<Character>;
+  const data: ApiResponse<Character> = await response.json();
   return data.data.results;
 }
-
 export async function fetchMarvelAllCharacters(
   limit = 100,
   offset = 0,

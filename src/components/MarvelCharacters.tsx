@@ -52,7 +52,7 @@ export default function MarvelCharacters() {
     setOffset(0);
     setCharacters([]);
     setHasMore(true);
-    fetchCharacters();
+    handleFetchMore();
   }, [searchQuery]);
 
   const handleFetchMore = async () => {

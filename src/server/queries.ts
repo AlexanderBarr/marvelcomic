@@ -74,7 +74,7 @@ export async function fetchMarvelCharacter(name: string): Promise<Character[]> {
     throw new Error("Failed to fetch Marvel characters");
   }
 
-  const data: ApiResponse<Character> = await response.json();
+  const data = (await response.json()) as ApiResponse<Character>;
   return data.data.results;
 }
 
@@ -92,7 +92,7 @@ export async function fetchMarvelAllCharacters(
     throw new Error("Failed to fetch Marvel characters");
   }
 
-  const data: ApiResponse<Character> = await response.json();
+  const data = (await response.json()) as ApiResponse<Character>;
   console.log(data);
 
   return data.data.results;
@@ -111,7 +111,7 @@ export async function fetchMarvelCharactersById(
     throw new Error("Failed to fetch Marvel characters");
   }
 
-  const data: ApiResponse<Character> = await response.json();
+  const data = (await response.json()) as ApiResponse<Character>;
   return data.data.results;
 }
 
@@ -126,7 +126,7 @@ export async function fetchComicById(comicId: string): Promise<Comic> {
     throw new Error(`Failed to fetch comic with ID: ${comicId}`);
   }
 
-  const data: ApiResponse<Comic> = await response.json();
+  const data = (await response.json()) as ApiResponse<Comic>;
 
   // Handle cases where no results are returned
   const comic = data.data.results[0];

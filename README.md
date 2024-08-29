@@ -4,6 +4,8 @@ Task is to create a Marvel comic repo using the MarvelAPI (https://developer.mar
 
 Test task for Mutinex
 
+I really appreciate the opportunity to do this test task for you.
+Any feedback you have would be greatly appreciated.
 
 ## To run
 A deployed version of this app can be found hosted on Vercel:
@@ -35,29 +37,10 @@ and navigate to:
 - [x] when clicked icon, loading visual and fetch data
 - [x] display large img, name, description
 - [x] fetch comics that character is in
-- [ ] 
 ### Comics
+- [x] once character is fetched, find all comics by its id
+- [x] display comics, title, and date on the right 
+
 ### Search
-- [ ] design a search bar with shadcn
-- [ ] 
-### Booklist
+- [x] design a search bar
 
-
-## Bugs
-- [ ] work out why its double fetching
-## Styles
-
-
-
-## Git Standards 
-- Feat– feature
-- Fix– bug fixes
-- Docs– changes to the documentation like README
-- Style– style or formatting change 
-- Perf – improves code performance
-- Test– test a feature
-
-## Tech Stack
-- React | Next.js 
-- Vercel (Builds and Deployment)
-    - https://vercel.com/

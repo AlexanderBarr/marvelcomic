@@ -6,11 +6,6 @@ Task: Create a Marvel comic app using the Marvel API (https://developer.marvel.c
 I really appreciate the opportunity to complete this test task for you. Any feedback you have would be greatly appreciated. I spent approximately 8 hours on this task. I experimented with new libraries (shadcn) and learned about modal rendering, as well as furthering my knowledge.
 
 ## To Run
-
-A deployed version of this app can be found hosted on Vercel:
-[Vercel link](https://marvelcomic-9yjfsomat-alexs-projects-ddcf1a67.vercel.app/)
-
-Otherwise:
 Clone the repo and run:
 ```pnpm install```
 ```pnpm dev```

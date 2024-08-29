@@ -1,5 +1,5 @@
 import { Modal } from "./modal";
-import { FullPageCharacterDetails } from "~/common/full-page-character-details";
+import { FullPageImageView } from "~/common/full-page-character-details";
 
 export default async function CharacterDetailModal({
   params: { id: photoId },
@@ -8,7 +8,7 @@ export default async function CharacterDetailModal({
 }) {
   return (
     <Modal>
-      <FullPageCharacterDetails photoId={photoId} />
+      <FullPageImageView photoId={photoId} />
     </Modal>
   );
 }

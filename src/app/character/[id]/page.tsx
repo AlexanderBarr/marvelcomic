@@ -1,4 +1,4 @@
-import { FullPageCharacterDetails } from "~/common/full-page-character-details";
+import { FullPageImageView } from "~/common/full-page-character-details";
 
 export default function CharacterDetailModal({
   params: { id: photoId },
@@ -7,7 +7,7 @@ export default function CharacterDetailModal({
 }) {
   return (
     <div className="flex h-full min-h-0 w-full min-w-0 overflow-y-hidden">
-      <FullPageCharacterDetails photoId={photoId} />
+      <FullPageImageView photoId={photoId} />
     </div>
   );
 }

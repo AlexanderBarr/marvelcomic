@@ -1,12 +1,10 @@
 import crypto from "crypto";
 
-// Define the base URL and keys
 const marvelApiStart =
   "https://gateway.marvel.com:443/v1/public/characters?apikey=";
 const marvelPublicKey = "dacd124f34943f4f40c5692e6a750038";
 const marvelPrivateKey = "a499974f88943a7e7f430c2a0268ef100335cd3d";
 
-// Define interfaces for API responses
 interface ComicThumbnail {
   path: string;
   extension: string;

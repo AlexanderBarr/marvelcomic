@@ -1,4 +1,4 @@
-import MarvelCharacters from "./_components/MarvelCharacters";
+import MarvelCharacters from "../components/MarvelCharacters";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {

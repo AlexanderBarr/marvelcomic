@@ -81,20 +81,18 @@ export async function fetchMarvelCharacter(name: string): Promise<Character[]> {
 export async function fetchMarvelAllCharacters(
   limit = 100,
   offset = 0,
+  nameStartsWith?: string,
 ): Promise<Character[]> {
   const ts = new Date().getTime().toString();
   const hash = generateHash(ts);
-  const requestUrl = `${marvelApiStart}${marvelPublicKey}&ts=${ts}&hash=${hash}&limit=${limit}&offset=${offset}`;
+  const requestUrl = `${marvelApiStart}${marvelPublicKey}&ts=${ts}&hash=${hash}&limit=${limit}&offset=${offset}${nameStartsWith ? `&nameStartsWith=${nameStartsWith}` : ""}`;
 
-  console.log("requestUrl:", requestUrl);
   const response = await fetch(requestUrl);
   if (!response.ok) {
     throw new Error("Failed to fetch Marvel characters");
   }
 
-  const data = (await response.json()) as ApiResponse<Character>;
-  console.log(data);
-
+  const data: ApiResponse<Character> = await response.json();
   return data.data.results;
 }
 
@@ -128,7 +126,6 @@ export async function fetchComicById(comicId: string): Promise<Comic> {
 
   const data = (await response.json()) as ApiResponse<Comic>;
 
-  // Handle cases where no results are returned
   const comic = data.data.results[0];
   if (!comic) {
     throw new Error(`Comic with ID ${comicId} not found`);

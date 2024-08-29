@@ -13,22 +13,25 @@ export function FullPageImageView({ photoId }: { photoId: string }) {
 
   return (
     <div className="flex h-full w-screen min-w-0 items-center justify-center text-white">
-      <div className="flex-shrink flex-grow">
+      {/* Left Side for Image */}
+      <div className="flex h-full flex-shrink-0 flex-grow items-center justify-center">
         {image && (
           <Image
             src={`${image.thumbnail.path}.${image.thumbnail.extension}`}
             alt={image.name}
-            className="object-contain"
-            width={600} // Adjust as needed
-            height={600} // Adjust as needed
+            width={600}
+            height={600}
+            className="h-full object-contain"
           />
         )}
       </div>
+
+      {/* Right Side for Details */}
       <div className="w-500 flex h-full flex-shrink-0 flex-col overflow-hidden border-l">
         <div className="border-b p-2 text-center text-xl">{image?.name}</div>
-        <div>Description:</div>
-        <div>{image?.description}</div>
-        <div className="flex overflow-y-scroll p-2">
+        <div className="p-2">Description:</div>
+        <div className="p-2">{image?.description}</div>
+        <div className="flex-1 overflow-y-scroll p-2">
           <ComicList comics={comics} />
         </div>
       </div>

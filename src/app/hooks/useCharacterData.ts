@@ -49,7 +49,7 @@ function extractComicIds(characters: Character[]): string[] {
     character.comics.items.forEach((item) => {
       const comicId = extractIdFromUrl(item.resourceURI);
       if (comicId) {
-        comicIds.push(comicId.toString()); // Ensure IDs are strings
+        comicIds.push(comicId.toString());
       }
     });
   });
@@ -68,17 +68,14 @@ export function useCharacterData(photoId: string) {
         const idAsNumber = Number(photoId);
         if (Number.isNaN(idAsNumber)) throw new Error("Invalid photo id");
 
-        // Fetch the character by ID
         const fetchedImage = await fetchMarvelCharactersById(idAsNumber);
 
-        // Handle case where fetchedImage might be empty
         if (fetchedImage.length > 0 && fetchedImage[0]) {
-          setImage(fetchedImage[0]); // fetchedImage[0] is guaranteed to be of type Character
+          setImage(fetchedImage[0]);
         } else {
           setImage(null);
         }
 
-        // Extract comic IDs and fetch comics
         const comicIds = extractComicIds(fetchedImage);
         if (comicIds.length > 0) {
           const fetchedComics = await fetchAllComics(comicIds);

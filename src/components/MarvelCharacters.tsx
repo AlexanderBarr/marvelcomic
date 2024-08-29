@@ -1,9 +1,8 @@
 "use client";
-export const dynamic = "force-dynamic";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fetchMarvelAllCharacters } from "~/server/queries";
-import Link from "next/link";
-import Image from "next/image";
+import { CharacterCard } from "~/components/CharacterCard";
+import { TopNavSearch } from "~/components/TopNavSearch";
 
 interface CharacterData {
   id: number;
@@ -21,14 +20,19 @@ export default function MarvelCharacters() {
   const [error, setError] = useState<string | null>(null);
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const fetchMoreCharacters = async () => {
+  const fetchCharacters = async () => {
     if (loading) return;
     setLoading(true);
 
     try {
-      const limit = 1;
-      const newCharacters = await fetchMarvelAllCharacters(limit, offset);
+      const limit = 10;
+      const newCharacters = await fetchMarvelAllCharacters(
+        limit,
+        offset,
+        searchQuery,
+      );
 
       if (newCharacters.length < limit) {
         setHasMore(false);
@@ -44,41 +48,46 @@ export default function MarvelCharacters() {
     }
   };
 
+  useEffect(() => {
+    setOffset(0);
+    setCharacters([]);
+    setHasMore(true);
+    fetchCharacters();
+  }, [searchQuery]);
+
   const handleFetchMore = async () => {
     if (!loading && hasMore) {
-      await fetchMoreCharacters();
+      await fetchCharacters();
     }
   };
 
   return (
     <div>
-      <h1>Characters</h1>
+      <h1 className="rounded-md py-4 text-center text-3xl font-bold text-white shadow-lg">
+        Characters
+      </h1>
+
+      <div className="mb-4">
+        <TopNavSearch onSearch={(query) => setSearchQuery(query)} />
+      </div>
 
       <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {characters.map((character) => (
-          <div key={character.id} className="flex items-center justify-center">
-            <Link
-              href={`/character/${character.id}`}
-              className="relative overflow-hidden rounded"
-              style={{ width: "80px", height: "80px" }}
-            >
-              <Image
-                src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                alt={character.name}
-                className="object-cover"
-                width={192}
-                height={192}
-              />
-              <span className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-xs font-semibold text-white">
-                {character.name}
-              </span>
-            </Link>
-          </div>
+          <CharacterCard
+            key={character.id}
+            id={character.id}
+            name={character.name}
+            thumbnail={character.thumbnail}
+          />
         ))}
       </div>
       <button
         onClick={handleFetchMore}
-        className="rounded bg-blue-500 p-2 text-white"
+        className={`rounded-lg px-4 py-2 font-semibold text-white transition-colors duration-300 ${
+          loading || !hasMore
+            ? "cursor-not-allowed bg-gray-500"
+            : "bg-blue-700 hover:bg-blue-800"
+        }`}
         disabled={loading || !hasMore}
       >
         {loading

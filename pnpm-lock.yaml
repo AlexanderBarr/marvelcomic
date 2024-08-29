@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@radix-ui/react-slot': ^1.1.0
   '@t3-oss/env-nextjs': ^0.10.1
   '@types/eslint': ^8.56.10
   '@types/node': ^20.14.10
@@ -32,6 +33,7 @@ specifiers:
   zod: ^3.23.3
 
 dependencies:
+  '@radix-ui/react-slot': 1.1.0_avjm4pbqnnkarrkbwg2xmtpsre
   '@t3-oss/env-nextjs': 0.10.1_w5hcuwibbw2q5mvl2ppratu4ju
   class-variance-authority: 0.7.0
   clsx: 2.1.1
@@ -707,6 +709,33 @@ packages:
     engines: {node: '>=14'}
     requiresBuild: true
     optional: true
+
+  /@radix-ui/react-compose-refs/1.1.0_avjm4pbqnnkarrkbwg2xmtpsre:
+    resolution: {integrity: sha512-b4inOtiaOnYf9KWyO3jAeeCG6FeyfY6ldiEPanbUjWd+xIk5wZeHa8yVwmrJ2vderhu/BQvzCrJI0lHd+wIiqw==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@types/react': 18.3.4
+      react: 18.3.1
+    dev: false
+
+  /@radix-ui/react-slot/1.1.0_avjm4pbqnnkarrkbwg2xmtpsre:
+    resolution: {integrity: sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.0_avjm4pbqnnkarrkbwg2xmtpsre
+      '@types/react': 18.3.4
+      react: 18.3.1
+    dev: false
 
   /@rushstack/eslint-patch/1.10.4:
     resolution: {integrity: sha512-WJgX9nzTqknM393q1QJDJmoW28kUfEnybeTfVNcNAPnIx210RXm2DiXiHzfNPJNIUUb1tJnz/l4QGtJ30PgWmA==}

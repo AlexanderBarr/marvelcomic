@@ -24,8 +24,15 @@ export function Modal({ children }: { children: React.ReactNode }) {
       className="absolute h-screen w-screen bg-black/80"
       onClose={onDismiss}
     >
-      {children}
-      <button onClick={onDismiss} className="close-button" />
+      <div>
+        <button
+          onClick={onDismiss}
+          className={`absolute right-4 top-4 flex items-center justify-center rounded-lg bg-blue-700 px-4 py-2 font-semibold text-white transition-colors duration-300 hover:bg-blue-800`}
+        >
+          <span className="sr-only">Close</span>X
+        </button>
+        {children}
+      </div>
     </dialog>,
     document.getElementById("modal-root")!,
   );

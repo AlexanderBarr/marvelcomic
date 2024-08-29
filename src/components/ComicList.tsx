@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-// Define interfaces for better type safety
 interface ComicDate {
   type: string;
   date: string;
@@ -20,9 +19,8 @@ interface Comic {
 
 export function ComicList({ comics }: { comics: Comic[] }) {
   return (
-    <div className="comics-list grid grid-cols-3 gap-4">
+    <div className="comics-list grid grid-cols-2 gap-2">
       {comics.map((comic) => {
-        // Extract the on sale date from the dates array
         const onSaleDate = comic.dates.find(
           (date) => date.type === "onsaleDate",
         )?.date;
@@ -37,7 +35,6 @@ export function ComicList({ comics }: { comics: Comic[] }) {
               className="object-cover"
             />
             <p className="mt-2 text-center">Title: {comic.title}</p>
-            {/* Display the on sale date in a human-readable format */}
             {onSaleDate && (
               <p>
                 Publication Date: {new Date(onSaleDate).toLocaleDateString()}

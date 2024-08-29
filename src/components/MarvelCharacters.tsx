@@ -1,6 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { fetchMarvelAllCharacters } from "~/server/queries";
+import {
+  fetchMarvelAllCharacters,
+  fetchMarvelCharacter,
+} from "~/server/queries";
 import { CharacterCard } from "~/components/CharacterCard";
 import { TopNavSearch } from "~/components/TopNavSearch";
 
@@ -27,12 +30,8 @@ export default function MarvelCharacters() {
     setLoading(true);
 
     try {
-      const limit = 10;
-      const newCharacters = await fetchMarvelAllCharacters(
-        limit,
-        offset,
-        searchQuery,
-      );
+      const limit = 20;
+      const newCharacters = await fetchMarvelAllCharacters(limit, offset);
 
       if (newCharacters.length < limit) {
         setHasMore(false);
@@ -49,10 +48,13 @@ export default function MarvelCharacters() {
   };
 
   useEffect(() => {
-    setOffset(0);
-    setCharacters([]);
-    setHasMore(true);
-    handleFetchMore();
+    const fetchData = async () => {
+      setLoading(true);
+      const searchedCharacter = await fetchMarvelCharacter(searchQuery);
+      setCharacters(searchedCharacter);
+      setLoading(false);
+    };
+    fetchData().catch(console.error);
   }, [searchQuery]);
 
   const handleFetchMore = async () => {
@@ -67,8 +69,12 @@ export default function MarvelCharacters() {
         Characters
       </h1>
 
-      <div className="mb-4">
-        <TopNavSearch onSearch={(query) => setSearchQuery(query)} />
+      <div className="mb-4 flex items-center justify-center">
+        <TopNavSearch
+          onSearch={(query) => {
+            setSearchQuery(query);
+          }}
+        />
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
@@ -81,23 +87,25 @@ export default function MarvelCharacters() {
           />
         ))}
       </div>
-      <button
-        onClick={handleFetchMore}
-        className={`rounded-lg px-4 py-2 font-semibold text-white transition-colors duration-300 ${
-          loading || !hasMore
-            ? "cursor-not-allowed bg-gray-500"
-            : "bg-blue-700 hover:bg-blue-800"
-        }`}
-        disabled={loading || !hasMore}
-      >
-        {loading
-          ? "Loading..."
-          : hasMore
-            ? "Load More Characters"
-            : "No More Characters"}
-      </button>
+      <div className="flex justify-center p-4">
+        <button
+          onClick={handleFetchMore}
+          className={`rounded-lg px-4 py-2 font-semibold text-white transition-colors duration-300 ${
+            loading || !hasMore
+              ? "cursor-not-allowed bg-gray-500"
+              : "bg-blue-700 hover:bg-blue-800"
+          }`}
+          disabled={loading || !hasMore}
+        >
+          {loading
+            ? "Loading..."
+            : hasMore
+              ? "Load More Characters"
+              : "No More Characters"}
+        </button>
 
-      {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-500">{error}</p>}
+      </div>
     </div>
   );
 }

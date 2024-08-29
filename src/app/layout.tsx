@@ -3,8 +3,6 @@ import "~/styles/globals.css";
 import { Inter } from "next/font/google";
 import { TopNav } from "./_components/topnav";
 
-// import { Toaster } from "~/components/ui/sonner";
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -32,7 +30,6 @@ export default function RootLayout({
           {modal}
         </div>
         <div id="modal-root" />
-        {/* <Toaster /> */}
       </body>
     </html>
   );
